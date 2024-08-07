@@ -1,0 +1,101 @@
+{% include 'navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/style.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+    h1 {
+        padding: 30px;
+        font-weight: 600 !important;
+        font-size: 3.2em;
+    }
+
+    .well {
+        width: 50%;
+    }
+
+    mark {
+        background-color: #04aa6d;
+        color: white;
+        border-radius: 5px;
+    }
+</style>
+<title>FASHION MNIST 의류 분류</title>
+
+<section class="fashion_mnist">
+    <div class="container">
+        <div class="col-md-12">
+            <center>
+                <h1>CNN을 이용한 의류 분류 프로젝트</h1>
+                <p>이미지를 올려주세요</p>
+            </center>
+        </div>
+        <div class="col-md-12">
+            <center>
+                <div class="well">
+                    <form action="" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="file" class="form-control" 
+                            id="file" name="file">
+                        </div>
+                        <div id="selectedBanner"></div>
+                        <br>
+                        <button type="submit" class="btn 
+                        btn-success">의류 분류하기</button>
+                    </form>
+                </div>
+            </center>
+        </div>
+        {% if clothing %}
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h4>업로드한 의류는 <mark>{{ clothing }}</mark>
+                    입니다.</h4>
+                <h4>Probabilities: {{ probs }}</h4>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        {% endif %}
+        <p style="text-align: center;">이 모델은 T-shirt/top, Trouser, Pullover,
+            Dress, Coat, Sandal, Shirt, Sneaker, Bag, Ankle boot만 분류해주는 모델입니다.</p>
+                
+
+        <script>
+            var selDiv = "";
+            var storedFiles = [];
+            $(document).ready(function () {
+                $("#file").on("change", handleFileSelect);
+                selDiv = $("#selectedBanner");
+            });
+
+            function handleFileSelect(e) {
+                var files = e.target.files;
+                var filesArr = Array.prototype.slice.call(files);
+                filesArr.forEach(function (f) {
+                    if (!f.type.match("image.*")) {
+                        return;
+                    }
+                    storedFiles.push(f);
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var html =
+                            '<img src="' +
+                            e.target.result +
+                            "\" data-file='" +
+                            f.name +
+                            "alt='Category Image' height='200px' width='200px'>";
+                        selDiv.html(html);
+                    };
+                    reader.readAsDataURL(f);
+                });
+            }
+        </script>
+    </div>
+    </center>
+</section>

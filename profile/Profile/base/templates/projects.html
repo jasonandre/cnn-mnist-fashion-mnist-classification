@@ -1,0 +1,30 @@
+{% include 'navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/style.css' %}">
+<title>Projects</title>
+<section class="project-area">
+    <center>
+        <font size="6">
+
+            <p>PROJECTS</p>
+            
+        </font>
+        <div id="project" class="project-item">
+            <h2><a href="/mnist">PROJECT 1 CNN을 이용한 숫자인식</a></h2>
+            
+            <p>6만개의 손글씨로 사전학습한 CNN 모델을 이용해서 숫자를 인식해주는 프로젝트 입니다.
+            </p>
+        </div>
+        <div id="project" class="project-item">
+            <h2><a href="/fashion_mnist">PROJECT 2 CNN 활용한 의류 분류 프로젝트</a></h2>
+
+            <p> 이미지사이즈 28by28 6만개 데이터 1만개 테스트
+            </p>
+        </div>
+        <div id="project" class="project-item">
+            <h2><a href="/visualization">PROJECT 3. 데이터 시각화 프로젝트</a></h2>
+
+            <p> 테스트 </p>
+        </div>
+    </center>
+</section>
